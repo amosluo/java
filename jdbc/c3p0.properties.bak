@@ -1,0 +1,4 @@
+c3p0.driverClass=oracle.jdbc.driver.OracleDriver
+c3p0.jdbcUrl=jdbc:oracle:thin:@localhost:1521:xe
+c3p0.user=lx
+c3p0.password=lx

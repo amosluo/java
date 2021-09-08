@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace:编写接口的全类名，就是告诉要实现该配置文件是哪个接口的具体实现-->
+<mapper namespace="com.amos.dao.DeptDao">
+    <!--
+    select:表示这个操作是一个查询操作
+    id表示的是要匹配的方法的名称
+    resultType:表示返回值的类型，查询操作必须要包含返回值的类型
+    #{属性名}：表示要传递的参数的名称
+    -->
+    <!-- 将每一个属性都映射为数据库中的列，如果有实体对象，则写成对象.属性的方式-->
+<!--    <resultMap id="empMap" type="com.amos.bean.Emp">-->
+<!--        <id property="empno" column="empno"></id>-->
+<!--        <result column="name" property="name"></result>-->
+<!--        <result column="birth" property="birth"></result>-->
+<!--        <result column="deptno" property="dept.deptno"></result>-->
+<!--        <result column="dept_name" property="dept.deptname"></result>-->
+<!--    </resultMap>-->
+    <resultMap id="deptMap" type="com.amos.bean.Dept">
+        <id property="deptno" column="deptno"></id>
+        <result column="dept_name" property="deptname"></result>
+        <collection property="emps" ofType="com.amos.bean.Emp">
+            <id property="empno" column="empno"></id>
+            <result column="name" property="name"></result>
+            <result column="birth" property="birth"></result>
+<!--            <result column="dept" property="deptno"></result>-->
+<!--            <association property="dept" javaType="com.amos.bean.Dept">-->
+<!--                <id property="deptno" column="deptno"></id>-->
+<!--                <result column="dept_name" property="deptname"></result>-->
+<!--            </association>-->
+        </collection>
+    </resultMap>
+    <select id="find" resultMap="deptMap">
+        select * from dept a, emp b where a.deptno = #{deptno} and a.deptno=b.deptno
+    </select>
+
+</mapper>
