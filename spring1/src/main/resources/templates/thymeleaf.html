@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>hello , thymeleaf</h2>
+<!--读取变量-->
+<h3>读取变量:</h3><p th:text="${msg}"></p>
+<p th:text="${msg2}"></p>
+
+<!--th:href-->
+<h3>th:href:</h3>
+<a th:href="@{userList(id=1)}">1、@{userList(id=9527)}</a><br/>
+<a th:href="@{userList(id=1,name=华安)}">2、@{userList(id=1,name=yoyo)}</a><br/>
+<a th:href="@{userList(id=1,name=${userName})}">3、@{userList(id=1,name=${userName})}</a>
+
+<h3>th:text:</h3>
+<p class="css1 css2" th:class="'css1 css2'">样式</p>
+<p th:text="'Big China'">中国</p>
+<p th:text="${userName}">userName</p>
+<p th:text="'small smile'+',very good.' + ${userName}">temp</p>
+
+<h3>th:utext:</h3>
+map .addAttribute("china", "<b>Chian</b>,USA,UK");
+<p th:text="${china}">默认转义</p>
+<p th:utext="${china}">不会转义</p>
+
+<h3>数字计算:</h3>
+<p th:text="80">8</p>
+<p th:text="8+8">8 + 8</p>
+<p th:text="8+8+' Love '+9+9">8 + 8+' Love '+9+9</p>
+<p th:text="8+8+' Love '+(9+9)">8 + 8+' Love '+(9+9)</p>
+<p th:text="100-${age}"></p>
+
+<h3>Boolean判断 :</h3>
+<p th:text="true">布尔</p>
+<p th:text="true and false">true and true</p>
+<p th:if="${isMarry}">已结婚</p>
+<p th:if="${age}&gt;18">已成年</p>
+<p th:if="${age}&lt;18">未成年</p>
+
+<h3>运算：</h3>
+<p th:text="15 * 4">值为 60 </p>
+<p th:text="15 * 4-100/10">值为 50 </p>
+<p th:text="100 % 8">值为 4</p>
+
+<h3>比较：</h3>
+<p th:if="5>3">5 大于 3</p>
+<p th:if="5 &gt;4">5 大于 4</p>
+<p th:if="10>=8 and 7 !=8">10大于等于8，且 7 不等于 8 </p>
+<p th:if="!${isMarry}">!false</p>
+<p th:if="not(${isMarry})">not(false)</p>
+
+<h3>三元运算符：</h3>
+<p th:text="7&gt;5?'7大':'5大'">三元运算符</p>
+<p th:text="${age}!=null?${age}:'age等于 null'"></p>
+<p th:text="${age}!=null?(${age}>=18?'成年':'未成年'):'age等于 null'"></p>
+<p th:text="${age2}!=null?${age2}:'age2等于 null'"></p>
+<p th:class="${isMarry}?'css2':'css3'">已婚</p>
+
+<h3>Html属性：</h3>
+<a href="" th:attr="title='前往百度',href='http://baidu.com'">前往百度</a>
+设置 href 属性
+<a href="userList.html" th:attr="href=@{/user/userHome}">用户首页</a>
+设置 id 属性，data-target 属性 Html 本身是没有的，但允许用户自定义
+<a href="#" th:attr="id='9527',data-target='user'">归海一刀</a>
+<p th:abc="9527">th:abc="9527"</p>
+<p th:xxoo="yoyo">th:xxoo="yoyo"</p>
+
+<h3>th:checked:</h3>
+<input type="checkbox" name="option1" checked/><span>是否已婚1？</span>
+<input type="checkbox" name="option2" checked="checked"/><span>是否已婚2？</span>
+
+
+后台传值 ： model.addAttribute("isMarry", true);
+
+<input type="checkbox" name="option3" th:checked="${isMarry}"/><span>是否已婚？</span>
+<input type="radio" name="option4" th:checked="${isMarry}"/><span>是否已婚？</span>
+<input type="radio" name="option5" th:checked="!${isMarry}"/><span>是否已婚？</span>
+
+<h3>鼠标焦点:</h3>
+<select>
+    <option>a</option>
+    <option th:selected="${isMarry}">已婚</option>
+    <option  th:selected="${!isMarry}">未婚</option>
+</select>
+<input type="text" th:autofocus="false">
+<input type="text" th:autofocus="true">
+<input type="text" th:autofocus="false">
+
+<h3>日期格式化：</h3>
+<span th:text="${#dates.format(date, 'yyyy-MM-dd HH:mm')}"></span>
+
+<h3>循环：</h3>
+<option th:each="city : ${list}" th:text="${city.name}" th:selected="${cityName} eq ${city.name}">Peking</option>
+<tr th:each="city,status : ${list}" th:style="${status.odd}?'background-color:#c2c2c2'">
+    <!-- EL JSTL-->
+    <td th:text = "${status.count}"></td>
+    <td th:text = "${city.id}"></td>
+    <td th:text = "${city.name}"></td>
+</tr>
+
+<h3>if/else :</h3>
+<p th:if="${isMarry}">已婚1</p>
+<p th:unless="${isMarry}">未婚</p>
+
+<h3>switch/case :</h3>
+<div th:switch="1">
+    <p th:case="0">管理员</p>
+    <p th:case="1">操作员</p>
+    <p th:case="*">未知用户</p>
+</div>
+
+
+
+<div th:switch="-1">
+    <p th:case="0">管理员</p>
+    <p th:case="*">操作员</p>
+    <p th:case="*">未知用户</p>
+</div>
+
+<div th:switch="${isMarry}">
+    <p th:case="true">已婚</p>
+    <p th:case="false">未婚</p>
+</div>
+
+<div th:switch="${country}">
+    <p th:case="'For USA'">美国</p>
+    <p th:case="'For UK'">英国</p>
+    <p th:case="'For China'">中国</p>
+    <p th:case="*">未知国籍</p>
+</div>
+
+<h3>内联表达式 :</h3>
+<p>[[${china}]]</p>
+<p>[(${china})]</p>
+<p>[[Lo1ve]]</p>
+<p>[['I Love You Baby']]</p>
+<p>[(9527)]</p>
+
+<h3>内联javascript ：</h3>
+<script type="text/javascript" th:inline="javascript">
+    var info = [[${info}]];
+    var age = [[${age}]];
+    var id = [[${id}]];
+    var name = [[${name}]];
+    console.log(id, name, age, info);
+</script>
+<script type="text/javascript" th:inline="javascript">
+    /**
+     * Thymeleaf 将自动忽略掉注释之后 和 分号之前的所有内容,如下为 "前端测试"
+     */
+    var info = /*[[${info}]]*/ "前端测试";
+    console.log(info);
+</script>
+
+<!--读取请求参数-->
+<h3>读取请求参数:</h3><p>${param.size()}=[[${param.size()}]]</p>
+<p>${param.id}=[[${param.id}]]</p>
+
+<!--读取session-->
+<h3>读取session:</h3><p>${session.size()}=[[${session.size()}]]</p>
+<p>${session["a"]}=[[${session["a"]}]]</p>
+<p>${session["b"]}=[[${session["b"]}]]</p>
+</body>
+</html>

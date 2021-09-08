@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd"
+       xmlns:p="http://www.springframework.org/schema/p"
+>
+    <!--<bean id="person" class="com.amos.bean.Person">-->
+    <!--    <property name="name" value="luox"></property>-->
+    <!--    <property name="id" value="10"></property>-->
+    <!--    <property name="age" value="20"></property>-->
+    <!--    <property name="gender" value="hhhel"></property>-->
+    <!--</bean>-->
+<!--    <bean id="person2" class="com.amos.bean.Person" init-method="init" destroy-method="destory">-->
+<!--        <constructor-arg name="name" value="1"></constructor-arg>-->
+<!--        <constructor-arg name="id" value="1"></constructor-arg>-->
+<!--    </bean>-->
+
+<!--    <bean id="person3" class="com.amos.bean.Person" p:name="1" p:id="28" p:age="10" p:gender="ss">-->
+<!--    </bean>-->
+
+<!--    <bean id="person4" class="com.amos.factory.StaticFacotory" factory-method="getInstance">-->
+<!--        <constructor-arg name="name" value="staticFactory"></constructor-arg>-->
+<!--    </bean>-->
+
+<!--    <bean id="instanceFactory" class="com.amos.factory.InstanceFactory"></bean>-->
+<!--    <bean id="person5" class="com.amos.bean.Person" factory-bean="instanceFactory" factory-method="getInstance">-->
+<!--        <constructor-arg name="name" value="instanceFactory"></constructor-arg>-->
+<!--    </bean>-->
+
+<!--    <bean id="factoryBean" class="com.amos.factory.MyFactoryBean"></bean>-->
+
+<!--    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">-->
+<!--        <property name="username" value="root"></property>-->
+<!--        <property name="password" value="root"></property>-->
+<!--        <property name="url" value="jdbc:mysql://192.168.3.120:3306/msb"></property>-->
+<!--        <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>-->
+<!--    </bean>-->
+    <context:component-scan base-package="com.amos"></context:component-scan>
+</beans>

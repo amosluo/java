@@ -1,0 +1,22 @@
+#项目启动端口
+server:
+  port: 8090
+#数据源配置
+spring:
+  datasource:
+    url: jdbc:mysql://192.168.3.121:3306/family_service_platform?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=utf8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+    name: defaultDataSource
+#配置mybatis
+mybatis:
+  mapper-locations: classpath:com/amos/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+#sql语句日志打印
+logging:
+  level:
+    com:
+      amos:
+        mapper: debug
