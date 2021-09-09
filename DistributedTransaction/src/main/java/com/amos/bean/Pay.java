@@ -11,8 +11,7 @@ public class Pay {
     public Pay() {
     }
 
-    public Pay(Integer id, Double payAmount, Date payTime, String payBy) {
-        this.id = id;
+    public Pay(Double payAmount, Date payTime, String payBy) {
         this.payAmount = payAmount;
         this.payTime = payTime;
         this.payBy = payBy;

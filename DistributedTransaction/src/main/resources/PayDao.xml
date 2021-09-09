@@ -18,14 +18,52 @@
     <!--        <result column="deptno" property="dept.deptno"></result>-->
     <!--        <result column="dept_name" property="dept.deptname"></result>-->
     <!--    </resultMap>-->
-    <resultMap id="payMap" type="com.amos.bean.Pay">
+    <resultMap id="payMap" type="Pay">
         <id property="id" column="id"></id>
         <result column="pay_amount" property="payAmount"></result>
         <result column="pay_time" property="payTime"></result>
         <result column="pay_by" property="payBy"></result>
     </resultMap>
+    <!--查询（通过id）-->
     <select id="find" resultMap="payMap">
         select * from pay a where a.id = #{id}
     </select>
+    <!--多参数查询-->
+    <!--通过金额和创建人查询-->
+    <!--注意：模糊查询需要"%":将%用双引号括起来，或者使用CONCAT函数-->
+    <!--如果结果类型指定为实体类，需要在sql中指定列别名，否则可能因为实体名称与sql字段名称不一致而导致数据字段无法映射-->
+    <select id="findByAmountAndCreatedBy" resultType="pay">
+        select id,pay_amount payAmount,pay_time payTime,pay_by payBy from pay
+        <!--去除where后面多余的and，or等-->
+        <trim prefix="where" prefixOverrides="and |or"></trim>
+        <where>
+            <!--满足条件才追加该参数-->
+            <if test="arg0 !=null ">
+                and pay_amount >= #{arg0}
+            </if>
+            <if test="arg1 !=null ">
+                and pay_by like #{arg1}"%"
+            </if>
+        </where>
+    </select>
+    <!--实体查询-->
+    <select id="findByPay" resultType="pay">
+        select id,pay_amount payAmount,pay_time payTime,pay_by payBy  from pay
+        <!--去除where后面多余的and，or等-->
+        <trim prefix="where" prefixOverrides="and |or"></trim>
+        <where>
+            <!--满足条件才追加该参数-->
+            <if test="payAmount !=null ">
+                and pay_amount >= #{payAmount}
+            </if>
+            <if test="payBy !=null ">
+                and pay_by like concat(#{payBy},"%")
+            </if>
+        </where>
+    </select>
+    <!--添加-->
+    <insert id="add">
+        insert into pay(pay_amount,pay_time,pay_by) values(#{payAmount},#{payTime},#{payBy})
+    </insert>
 
 </mapper>

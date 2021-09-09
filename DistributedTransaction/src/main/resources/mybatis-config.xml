@@ -3,28 +3,40 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+    <!--设置数据库配置资源文件-->
     <properties resource="db.properties"></properties>
     <settings>
+        <!--设置日志实现者-->
         <setting name="logImpl" value="LOG4J"/>
+        <!--启用缓存-->
         <setting name="cacheEnabled" value="true"/>
     </settings>
+    <!--设置哪些类型缩略名，这样在mapper文件中使用的时候不用输入实体类的完整限定名-->
     <typeAliases>
         <package name="com.amos.bean"/>
     </typeAliases>
+    <!--指定环境，设置默认值为开发环境-->
     <environments default="development">
+        <!--设置开发环境相关配置-->
         <environment id="development">
+            <!--设置事务管理器为JDBC-->
             <transactionManager type="JDBC"/>
             <!--配置数据库连接-->
             <dataSource type="POOLED">
+                <!--设置数据库驱动名称：来源于db.properties中的driver变量-->
                 <property name="driver" value="${driver}"/>
+                <!--设置数据库连接串：来源于db.properties中的url变量-->
                 <property name="url" value="${url}"/>
+                <!--设置数据库用户名：来源于db.properties中的username变量-->
                 <property name="username" value="${username}"/>
+                <!--设置数据库密码：来源于db.properties中的password变量-->
                 <property name="password" value="${password}"/>
             </dataSource>
         </environment>
     </environments>
     <!--引入每一个接口对应点xml文件-->
     <mappers>
+        <!--引入PayDao映射文件-->
         <mapper resource="PayDao.xml"/>
     </mappers>
 </configuration>
